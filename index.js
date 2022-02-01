@@ -9,9 +9,10 @@ const path = require('path');
 // App config
 const environment = process.env.ENVIRONMENT || 'development';
 const port = process.env.PORT || 3000;
-const mariadb = {
-    mariadb_host: process.env.STACK
-}
+const mariadb_host = process.env.STACKHERO_MARIADB_HOST || require('./devkeys.json').mariadb.host;
+const mariadb_user = process.env.MARIADB_USERNAME || require('./devkeys.json').mariadb.user;
+const mariadb_password = process.env.STACKHERO_MARIADB_ROOT_PASSWORD || require('./devkeys.json').mariadb.password;
+const mariadb_database = 'zenbook';
 
 const api = require('./routes/api');
 const routes = require('./routes/router');
@@ -42,10 +43,10 @@ app.get('/', (req, res) => {
 
 app.get('/delete', (req, res) => {
     let connection = mysql.createConnection({
-        host: require('./devkeys.json').mariadb.host,
-        user: require('./devkeys.json').mariadb.user,
-        password: require('./devkeys.json').mariadb.password,
-        database: 'zenbook'
+        host: mariadb_host,
+        user: mariadb_user,
+        password: mariadb_password,
+        database: mariadb_database
     });
 
     let fetchData = new Promise((resolve, reject) => {
@@ -70,10 +71,10 @@ app.get('/add', (req, res) => {
 
 app.post('/add', (req, res) => {
     let connection = mysql.createConnection({
-        host: require('./devkeys.json').mariadb.host,
-        user: require('./devkeys.json').mariadb.user,
-        password: require('./devkeys.json').mariadb.password,
-        database: 'zenbook'
+        host: mariadb_host,
+        user: mariadb_user,
+        password: mariadb_password,
+        database: mariadb_database
     });
     let contact = req.body;
 
@@ -95,10 +96,10 @@ app.post('/add', (req, res) => {
 
 app.get('/view', (req, res) => {
     let connection = mysql.createConnection({
-        host: require('./devkeys.json').mariadb.host,
-        user: require('./devkeys.json').mariadb.user,
-        password: require('./devkeys.json').mariadb.password,
-        database: 'zenbook'
+        host: mariadb_host,
+        user: mariadb_user,
+        password: mariadb_password,
+        database: mariadb_database
     });
     let people = [];
 

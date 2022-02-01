@@ -1,7 +1,7 @@
-.col {
-    border: dashed black 1px;
+.col, .outline {
+    /* border: dashed black 1px; */
 }
 
 .person-card {
-    width: 18rem;
+    width: 20rem;
 }

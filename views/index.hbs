@@ -9,19 +9,33 @@
     <body>
         {{> navbar}}
 
+        <br>
+
         <div class="container">
             <div class="row">
-                <div class="col">
-                    
-                    <div class="card person-card">
-                        <div class="card-body">
-                            <h5 class="card-title">John Doe</h5>
-                            <p class="card-text">Software engineer at Company Inc.</p>
-                            <a href="#" class="btn btn-primary">Generate vCard</a>
+                
+                    {{#if people}}
+                        {{#each people}}
+                            <div class="col d-flex justify-content-center">
+                                <div class="mb-3 card person-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{this.name}}</h5>
+                                        <p class="card-text">{{this.title}} {{#if this.company}} at {{this.company}} {{/if}}</p>
+                                        {{!-- {{#if this.phonenumber}} <p class="card-text">Phone: {{this.phonenumber}}</p> {{/if}} --}}
+                                        <a href="/highlight?id={{this.id}}" class="btn btn-primary">Go To Profile</a>
+                                        <a href="/delete?id={{this.id}}" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        {{/each}}
+                    {{else}}
+                        <div class="col d-flex justify-content-center">
+                            <p>Nothing to see here...</p>
                         </div>
-                    </div>
-
-                </div>
+                    {{/if}}
+                {{!-- </div> --}}
+                
             </div>
         </div>
 

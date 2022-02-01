@@ -1,13 +1,21 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const hbs = require('hbs');
-const morgan = require('morgan');
+const morgan = require('morgan'); 
+const mysql = require('mysql');
 const path = require('path');
+
+// App config
+const environment = process.env.ENVIRONMENT || 'development';
+const port = process.env.PORT || 3000;
+const mariadb = {
+    mariadb_host: process.env.STACK
+}
 
 const api = require('./routes/api');
 const routes = require('./routes/router');
 
-const port = process.env.PORT || 3000;
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -115,7 +115,8 @@ app.get('/view', (req, res) => {
         for (let i = 0; i < results.length; i++) {
             people.push({
                 id: results[i].id,
-                name: `${results[i].firstname} ${results[i].lastname}`,
+                firstname: results[i].firstname,
+                lastname: results[i].lastname,
                 title: results[i].jobtitle,
                 company: results[i].company,
                 phonenumber: results[i].phonenumber
@@ -124,7 +125,7 @@ app.get('/view', (req, res) => {
     }).catch((err) => {
         res.send(err);
     }).finally(() => {
-        res.render('index.hbs', {
+        res.render('view.hbs', {
             people: people
         });
     });

@@ -18,12 +18,23 @@ const routes = require('./routes/router');
 
 
 const app = express();
+app.set('view engine', hbs);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
-app.use('/', routes);
 app.use('/api', api);
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules', 'bootstrap', 'dist')));
+// app.use('/popper', express.static())
+// require('./node_modules/@popperjs/core/dist/cjs/popper');
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.render('index.hbs');
+});
+
+
+
 
 app.listen(port, console.log(`Listening on port ${port}!`));

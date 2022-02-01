@@ -1,0 +1,29 @@
+{
+  "name": "zen-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zacharyjbaldwin/zen-book.git"
+  },
+  "author": "Zachary Baldwin (zacharyjbaldwin@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zacharyjbaldwin/zen-book/issues"
+  },
+  "homepage": "https://github.com/zacharyjbaldwin/zen-book#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
+    "hbs": "^4.2.0",
+    "morgan": "^1.10.0"
+  }
+}

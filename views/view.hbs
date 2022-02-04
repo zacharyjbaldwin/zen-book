@@ -5,6 +5,8 @@
         
         {{> page_settings }}
         {{> imports_css }}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
     </head>
     <body>
         {{> navbar}}
@@ -23,15 +25,20 @@
                                     <th scope="col">First name</th>
                                     <th scope="col">Last name</th>
                                     <th scope="col">Phone number</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each people}}
                                     <tr>
                                         <th scope="row">{{this.id}}</th>
-                                        <th scope="row">{{this.firstname}}</th>
-                                        <th scope="row">{{this.lastname}}</th>
-                                        <th scope="row">{{this.phonenumber}}</th>
+                                        <td>{{this.firstname}}</th>
+                                        <td>{{this.lastname}}</th>
+                                        <td>{{this.phonenumber}}</th>
+                                        <td>
+                                            <a class="btn btn-outline-primary btn-sm" href="/highlight?id={{this.id}}">View</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="/delete?id={{this.id}}">Delete</a>
+                                        </th>
                                     </tr>
                                 {{/each}}
                             </tbody>

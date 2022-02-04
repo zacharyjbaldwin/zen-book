@@ -111,7 +111,7 @@ app.get('/view', (req, res) => {
             else resolve(results);
         });
     }).then((results) => {
-        console.log(results);
+        // console.log(results);
         for (let i = 0; i < results.length; i++) {
             people.push({
                 id: results[i].id,

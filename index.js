@@ -95,43 +95,106 @@ app.post('/add', (req, res) => {
 })
 
 app.get('/view', (req, res) => {
+    target = req.query.target;
+    if (!target) { res.redirect('/view?target=all'); }
+
     let connection = mysql.createConnection({
         host: mariadb_host,
         user: mariadb_user,
         password: mariadb_password,
         database: mariadb_database
     });
-    let people = [];
-
-    let fetchData = new Promise((resolve, reject) => {
-        connection.connect();
-        connection.query('SELECT * FROM people;', (err, results) => {
-            connection.end();
-            if (err) reject(err);
-            else resolve(results);
+    
+    if (target == "all")
+    {
+        let people = [];
+        let fetchData = new Promise((resolve, reject) => {
+            connection.connect();
+            connection.query('SELECT * FROM people;', (err, results) => {
+                connection.end();
+                if (err) reject(err);
+                else resolve(results);
+            });
+        }).then((results) => {
+            // console.log(results);
+            for (let i = 0; i < results.length; i++) {
+                people.push({
+                    id: results[i].id,
+                    firstname: results[i].firstname,
+                    lastname: results[i].lastname,
+                    title: results[i].jobtitle,
+                    company: results[i].company,
+                    phonenumber: results[i].phonenumber
+                });
+            }
+        }).catch((err) => {
+            res.send(err);
+        }).finally(() => {
+            res.render('view.hbs', {
+                people: people
+            });
         });
-    }).then((results) => {
-        // console.log(results);
-        for (let i = 0; i < results.length; i++) {
-            people.push({
-                id: results[i].id,
-                firstname: results[i].firstname,
-                lastname: results[i].lastname,
-                title: results[i].jobtitle,
-                company: results[i].company,
-                phonenumber: results[i].phonenumber
-            })
-        }
-    }).catch((err) => {
-        res.send(err);
-    }).finally(() => {
-        res.render('view.hbs', {
-            people: people
+    }
+    else if (target != undefined)
+    {
+        let person;
+        let fetchData = new Promise((resolve, reject) => {
+            connection.connect();
+            connection.query(`SELECT * FROM people WHERE id = ${target};`, (err, results) => {
+                connection.end();
+                if (err) reject(err);
+                else resolve(results);
+            });
+        }).then((results) => {
+            // console.log(results);
+            res.send(results);
+        }).catch((err) => {
+            res.send(err);
+        }).finally(() => {
+            // res.render('highlight.hbs', {
+            //     person: person
+            // }); 
         });
-    });
+    }
 });
 
+// original code backed up just in case
+// app.get('/view', (req, res) => {
+//     let connection = mysql.createConnection({
+//         host: mariadb_host,
+//         user: mariadb_user,
+//         password: mariadb_password,
+//         database: mariadb_database
+//     });
+//     let people = [];
 
+//     let fetchData = new Promise((resolve, reject) => {
+//         connection.connect();
+//         connection.query('SELECT * FROM people;', (err, results) => {
+//             connection.end();
+//             if (err) reject(err);
+//             else resolve(results);
+//         });
+//     }).then((results) => {
+//         // console.log(results);
+//         for (let i = 0; i < results.length; i++) {
+//             people.push({
+//                 id: results[i].id,
+//                 firstname: results[i].firstname,
+//                 lastname: results[i].lastname,
+//                 title: results[i].jobtitle,
+//                 company: results[i].company,
+//                 phonenumber: results[i].phonenumber
+//             })
+//         }
+//     }).catch((err) => {
+//         res.send(err);
+//     }).finally(() => {
+//         res.render('view.hbs', {
+//             people: people
+//         });
+//     });
+// });
 
 
 app.listen(port, console.log(`Listening on port ${port}!`));

@@ -147,54 +147,31 @@ app.get('/view', (req, res) => {
             });
         }).then((results) => {
             // console.log(results);
-            res.send(results);
+            // res.send(results);
+
+            results = results[0];
+
+            person = {
+                contact: {
+                    phonenumber: results.phonenumber,
+                    email: "placeholder@example.com"
+                },
+                id: results.id,
+                firstname: results.firstname,
+                lastname: results.lastname,
+                occupation: {
+                    jobtitle: results.jobtitle,
+                    company: results.company,
+                }
+            };
         }).catch((err) => {
             res.send(err);
         }).finally(() => {
-            // res.render('highlight.hbs', {
-            //     person: person
-            // }); 
+            res.render('highlight.hbs', {
+                person: person 
+            }); 
         });
     }
 });
-
-// original code backed up just in case
-// app.get('/view', (req, res) => {
-//     let connection = mysql.createConnection({
-//         host: mariadb_host,
-//         user: mariadb_user,
-//         password: mariadb_password,
-//         database: mariadb_database
-//     });
-//     let people = [];
-
-//     let fetchData = new Promise((resolve, reject) => {
-//         connection.connect();
-//         connection.query('SELECT * FROM people;', (err, results) => {
-//             connection.end();
-//             if (err) reject(err);
-//             else resolve(results);
-//         });
-//     }).then((results) => {
-//         // console.log(results);
-//         for (let i = 0; i < results.length; i++) {
-//             people.push({
-//                 id: results[i].id,
-//                 firstname: results[i].firstname,
-//                 lastname: results[i].lastname,
-//                 title: results[i].jobtitle,
-//                 company: results[i].company,
-//                 phonenumber: results[i].phonenumber
-//             })
-//         }
-//     }).catch((err) => {
-//         res.send(err);
-//     }).finally(() => {
-//         res.render('view.hbs', {
-//             people: people
-//         });
-//     });
-// });
-
 
 app.listen(port, console.log(`Listening on port ${port}!`));

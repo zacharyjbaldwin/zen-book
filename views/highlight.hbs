@@ -14,66 +14,53 @@
         <br>
 
         <div class="container">
+            
             <div class="row d-flex justify-content-center">
-                <div class="col-lg-6">
-                    <h2 class="mb-3">{{}}</h2>
-                    {{#if people}}
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">First name</th>
-                                    <th scope="col">Last name</th>
-                                    <th scope="col">Phone number</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each people}}
-                                    <tr>
-                                        <th scope="row">{{this.id}}</th>
-                                        <td>{{this.firstname}}</th>
-                                        <td>{{this.lastname}}</th>
-                                        <td>{{this.phonenumber}}</th>
-                                        <td>
-                                            <a class="btn btn-outline-primary btn-sm" href="/view?target={{this.id}}">View</a>
-                                            <a class="btn btn-outline-danger btn-sm" href="/delete?id={{this.id}}">Delete</a>
-                                        </th>
-                                    </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    {{else}}
-                        <div class="col d-flex justify-content-center">
-                            <p>Nothing to see here...</p>
-                        </div>
-                    {{/if}}
+                <div class="col-lg-1">
+                    <a href="/view" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back</a>
                 </div>
-                
-                    
-                    <!--
-                    {{#if people}}
-                        {{#each people}}
-                            <div class="col d-flex justify-content-center">
-                                <div class="mb-3 card person-card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{this.name}}</h5>
-                                        <p class="card-text">{{this.title}} {{#if this.company}} at {{this.company}} {{/if}}</p>
-                                        {{!-- {{#if this.phonenumber}} <p class="card-text">Phone: {{this.phonenumber}}</p> {{/if}} --}}
-                                        <a href="/highlight?id={{this.id}}" class="btn btn-primary">Go To Profile</a>
-                                        <a href="/delete?id={{this.id}}" class="btn btn-danger">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                                
-                        {{/each}}
-                    {{else}}
-                        <div class="col d-flex justify-content-center">
-                            <p>Nothing to see here...</p>
-                        </div>
-                    {{/if}}
-                    -->
-                
+                <div class="col-lg-5">
+                    {{#with person}}
+                        <h2>{{this.firstname}} {{this.lastname}}</h2>
+                                                
+                        <h4 class="mt-5">Personal info</h4>
+                        <hr>
+                        <p><strong>First name:</strong> {{this.firstname}}</p>
+                        <p><strong>Last name:</strong> {{this.lastname}}</p>
+                        
+                        {{#if this.contact}}
+                            <h4 class="mt-5">Contact info</h4>
+                            <hr>
+                            <p><strong>Phone number:</strong> {{this.contact.phonenumber}}</p>
+                            <p><strong>Email:</strong> <a href="mailto:{{this.contact.email}}">{{this.contact.email}}</a></p>
+                        {{/if}}
+
+                        {{!-- {{#if this.address}} --}}
+                            <h4 class="mt-5">Address info</h4>
+                            <hr>
+                            <p><strong>Street: </strong> {{this.address.street}}</p>
+                            <p><strong>City: </strong> {{this.address.city}}</p>
+                            <p><strong>Zip code: </strong> {{this.address.zipcode}}</p>
+                        {{!-- {{/if}} --}}
+
+                        {{#if this.occupation}}
+                            <h4 class="mt-5">Occupational info</h4>
+                            <hr>
+                            <p><strong>Company: </strong> {{this.occupation.company}}</p>
+                            <p><strong>Title: </strong> {{this.occupation.jobtitle}}</p>
+                        {{/if}}
+
+                        
+
+                        <h4 class="mt-5">Actions</h4>
+                        <hr>
+                        <a href="#" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-warning">Generate vCard</a>
+                        <a href="#" class="btn btn-info">Get System ID</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                        
+                    {{/with}}
+                </div>
             </div>
         </div>
 

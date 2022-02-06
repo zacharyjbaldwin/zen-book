@@ -3,7 +3,7 @@ A pretty address book built on Node and MySQL.
 This project is a work-in-progress. See a demo [here](https://zen-book.herokuapp.com).
 
 Planned features:
-* Add 'Generate vCard' button to view pages.
+* Add 'Generate vCard' button to view pages. This will generate a modal with a QR code for the contact.
 * Add more fields to a contact.
 * Implement search function.
 
